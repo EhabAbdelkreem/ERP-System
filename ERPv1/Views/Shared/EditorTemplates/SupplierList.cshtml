@@ -1,0 +1,21 @@
+﻿@inject ERPv1.Data.ApplicationDbContext dbContext
+
+
+@model dynamic
+@{
+    var client = dbContext.Contacts
+        .Where(x=>x.IsSupplier)
+        .Select(x => new SelectListItem
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name
+        }).OrderBy(x => x.Text).ToList();
+
+
+}
+@{
+    var htmlAttributes = ViewData["htmlAttributes"] ?? new { };
+}
+
+
+@Html.DropDownList("", client, "Select ---", htmlAttributes)

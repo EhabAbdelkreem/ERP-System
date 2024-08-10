@@ -1,0 +1,161 @@
+﻿@model ERPv1.ERP.GeneralLedgerModule.JournalModeule.ViewModel.TrailBalance.TrailBalanceContainer
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "TrailBalance";
+}
+
+@{ string model = JsonConvert.SerializeObject(Model);}
+
+
+<div class="card">
+    <div class="card-header bg-primary">
+        <b class="text-white">
+            <span class="fa-pencil-square-o">&nbsp; ميزان مراجعة </span>
+        </b>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="StatementSummary.StartDate">من</label>
+                        @Html.EditorFor(x => x.TrailBalanceParams.StartDate, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @data_bind = "value:TrailBalanceParams.StartDate",
+                           @class = "form-control date"
+                       }
+                   })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="StatementSummary.EndDate">الي</label>
+                        @Html.EditorFor(x => x.TrailBalanceParams.EndDate, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @data_bind = "value:TrailBalanceParams.EndDate",
+                           @class = "form-control date"
+                       }
+                   })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-primary" type="button" data-bind="click:Search">
+            <i class="fa fa-search-plus"></i>&nbsp;
+            بحث
+        </button>
+
+       
+
+    </div>
+</div>
+<card title="تفاصيل الحركة" addational-class="fa-list" text-color-class="text-white" header-class="bg-primary">
+    <table class="table table-bordered table-striped table-hover" @*style="font-size:small"*@>
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th></th>
+                <th colspan="2">
+                    ارصدة أول المدة
+                </th>
+                <th colspan="2">
+                    المجاميع
+                </th>
+                <th colspan="2">
+                    ارصدة أخر المدة
+                </th>
+                
+            </tr>
+            <tr>
+                <th>رقم الحساب</th>
+                <th>اسم الحساب</th>
+                <th>مدين</th>
+                <th>دائن</th>
+                <th>مدين</th>
+                <th>دائن</th>
+                <th>مدين</th>
+                <th>دائن</th>
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: TrailBalanceItems">
+            <tr>
+
+                <td>
+                    <span data-bind="text: AccNum" />
+                </td>
+                <td>
+                    <span data-bind="text: AccName" />
+                </td>
+                <td>
+                    <span data-bind="text: StartingBalanceDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: StartingBalanceCredit" />
+                </td>
+                <td>
+                    <span data-bind="text: TotalAmountDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: TotalAmountCredit" />
+                </td>
+                <td>
+                    <span data-bind="text: EndingBalanceDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: EndingBalanceCredit" />
+                </td>
+
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <span data-bind="text: TotalStartingBalanceDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: TotalStartingBalanceCredit" />
+                </td>
+                <td>
+                    <span data-bind="text: GrandTotalAmountDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: GrandTotalAmountCredit" />
+                </td>
+                <td>
+                    <span data-bind="text: TotalEndingBalanceDebit" />
+                </td>
+                <td>
+                    <span data-bind="text: TotalEndingBalanceCredit" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</card>
+
+
+@section Scripts {
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/APP/TrailBalance.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        var statment = new TrailBalanceKOViewModel(@Html.Raw(model));
+        ko.applyBindings(statment);
+    </script>
+
+
+
+}

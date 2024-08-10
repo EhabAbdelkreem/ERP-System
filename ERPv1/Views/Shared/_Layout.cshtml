@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ERPv1</title>
+    <link rel="stylesheet" href="~/lib/rtl/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.css" />
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand" href="#"><img src="~/Images/templogo.png" height="50" width="150" /></a>
+                <div class="container  text-white">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">الرئيسية <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                الموردين
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/Expenditure/Supplier/Index"> قائمة الموردين </a></li>
+                                <li><a class="dropdown-item" href="~/Expenditure/NP/ManageNP"> شيكات الموردين </a></li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">شيكات العملاء</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/NR/CheckInSafe">شيكات في الخزنة </a></li>
+                                        <li><a class="dropdown-item" href="~/NR/CheckInBank">شيكات في البنك </a></li>
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                العملاء
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/SalesArea/Clients/Index"> ادارة العملاء </a></li>
+                                
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">شيكات العملاء</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/SalesArea/NR/CheckInSafe">شيكات في الخزنة </a></li>
+                                        <li><a class="dropdown-item" href="~/SalesArea/NR/CheckInBank">شيكات في البنك </a></li>
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                الحسابات
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/GLArea/AccountChart/Index">جميع الحسابات </a></li>
+                                <li><a class="dropdown-item" href="~/GLArea/OpenBalance/NewBalance">القيد الافتتاحي </a></li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">شجرة الحسابات</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/Finance/GL/AccountList">جميع الحسابات </a></li>
+                                        <li><a class="dropdown-item" href="~/CRM/Contacts/Index">العملاء و الموردين </a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">المصروفات</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/Expenses/AddNewExpense">تسجيل مصروف </a></li>
+                                        <li><a class="dropdown-item" href="~/Expenses/ExpneseItems">بنود المصروفات </a></li>
+                                        <li><a class="dropdown-item" href="~/ExpneseTypes/Index">أنواع المصروفات </a></li>
+                                        <li><a class="dropdown-item" href="~/ExpenseCategories/Index">مراكز التكلفة </a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="~/Finance/Journal/CreateJournal">تحويل ما بين الحسابات </a></li>
+
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="~/Expenses/SupplierPayment">الموردين و الدائنون </a></li>
+                                <li><a class="dropdown-item" href="~/NP/NotesPayable">شيكات الموردين </a></li>
+
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                التقارير
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">تقارير الحسابات</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/GLArea/Report/AccountStatment">كشف حساب  </a></li>
+                                        <li><a class="dropdown-item" href="~/SalesArea/Clients/ClientStatment">كشف حساب عميل </a></li>
+                                        <li><a class="dropdown-item" href="~/FinanceReport/SupplierStatment">كشف حساب مورد </a></li>
+                                        <li><a class="dropdown-item" href="~/Finance/ExpenseSummaries/Index">تقرير المصروفات </a></li>
+
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                الأعدادات
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">الحسابات</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/FinanceSettings/ManageCurrency">العملات </a></li>
+                                        <li><a class="dropdown-item" href="~/FinanceSettings/ManageBanks">البنوك </a></li>
+                                        <li><a class="dropdown-item" href="~/FinanceSettings/ManageExpenseCategory">تحليلي مصروفات </a></li>
+
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#">شؤون العاملين</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="~/HRSettings/ManageDepartements">الأدارات </a></li>
+                                        <li><a class="dropdown-item" href="~/HRSettings/ManageTitles">المسمي الوظيفي </a></li>
+                                        <li class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="~/HRSettings/ManageEmployees">الموظفين </a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a class="dropdown-item" href="~/FinanceSettings/ManageContractSources">مصادر العملاء </a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - ERPv1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

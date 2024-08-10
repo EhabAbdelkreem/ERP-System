@@ -1,0 +1,109 @@
+﻿@model ERPv1.ERP.CurrentAssetModules.ChecksModule.ViewModel.CheckInBank.CheckInBankContainer
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "Check In Bank";
+}
+@{ string data = JsonConvert.SerializeObject(Model);}
+
+<form enctype="multipart/form-data" method="post">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <b class="text-white">
+                <span class="fa fa-list">&nbsp; شيكات في البنك</span>
+            </b>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover dataTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            اسم العميل
+                        </th>
+
+                        <th>
+                            رقم الشيك
+                        </th>
+                        <th>
+                            مبلغ الشيك
+                        </th>
+                        <th>
+                            تاريخ الأستحقاق
+                        </th>
+                        <th>
+                            علي بنك
+                        </th>
+                        <th>
+                            حالة الشيك
+                        </th>
+
+                        <th>
+                            البنك
+                        </th>
+                        <th></th>
+
+
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: CheckDetails">
+                    <tr>
+                        <td>
+                            <input type="checkbox" data-bind="checked:Selected" />
+                        </td>
+                        <td>
+                            <span data-bind="text: ClientName" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckNum" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckAmount" />
+                        </td>
+                        <td>
+                            <span data-bind="text: DueDate" />
+                        </td>
+                        <td>
+                            <span data-bind="text: OrginalBank" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckStatus" />
+                        </td>
+                        <td>
+                            <span data-bind="text: BankAccountName" />
+                        </td>
+                        <td>
+                            @*<a class="btn btn-primary" data-bind="attr:{href:'/Collection/CollectPayment/'+InstallmentId()}">تحصيل نقدي</a>*@
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary" type="button" data-bind="click:Save">
+                <i class="fa fa-save"></i>&nbsp;
+                حفظ
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/APP/CheckInBank.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        var NR = new ChecksInBank(@Html.Raw(data));
+        ko.applyBindings(NR);
+    </script>
+
+
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ERPv1.ERP.CurrentLiabilitiesModules.NotesPayableModule.ViewModel.NPDetails>
+
+<card title="شيكات تحت الصرف" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead>
+            <tr>
+
+                <th>
+                    أسم المورد
+                </th>
+                <th>
+                    رقم الشيك
+                </th>
+                <th>
+                    المبلغ
+                </th>
+               
+                <th>
+                    العملة
+                </th>
+               
+                <th>
+                    تاريخ الأستحقاق
+                </th>
+              
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span>@item.SupplierName</span>
+                    </td>
+
+                    <td>
+                        <span>@item.ChkNum</span>
+                    </td>
+                    <td>
+                        <span>@item.AmountForgin</span>
+                      
+                    </td>
+                    
+                    <td>
+                        <span>@item.CurrencyAbbrev</span>
+                        
+                    </td>
+                  
+                    <td>
+                        <span>@item.DueDate</span>
+                        
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+</card>

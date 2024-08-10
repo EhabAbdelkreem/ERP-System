@@ -1,0 +1,221 @@
+﻿@model ERP.PurchasesModule.ViewModel.PurchaseContainer
+@using Newtonsoft.Json
+
+
+@{
+    ViewData["Title"] = "NewPurchase";
+}
+
+@{ string model = JsonConvert.SerializeObject(Model);}
+<form enctype="multipart/form-data" method="post">
+    <div data-bind="visible:IsMessageAreaVisible">
+        <card title="رسائل" header-class="bg-default"
+              addational-class="fa-exclamation-triangle" text-color-class="text-black">
+            <ul data-bind='foreach:Messages'>
+                <li data-bind='text:$data' class='card-text'></li>
+            </ul>
+        </card>
+    </div>
+    <div class="preload fa fa-spin fa-spinner" style="font-size:150px"
+         data-bind="visible:IsWaitingAreaVisible"></div>
+
+    <div data-bind="visible:IsDetailAreaVisible">
+        <card title="بيانات المورد" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>اسم المورد</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:SupplierData.SupplierName" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>التليفون</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:SupplierData.Phone" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>الرصيد</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:SupplierData.Balance" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </card>
+
+        <card title="تفاصيل المشتريات" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+            <table class="table table-bordered table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+
+                        <th>
+                            المنتج
+                        </th>
+                        <th>
+                            الكمية الحالية
+                        </th>
+                        <th>
+                            الكمية
+                        </th>
+                        <th>
+                            سعر الوحدة
+                        </th>
+                        <th>
+                            الإجمالي
+                        </th>
+                        <th>
+                            الارقام المسلسلة
+                        </th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" type="button" data-bind="click:AddNewItem">
+
+                                <i class="fa fa-plus-circle"></i>
+
+                            </button>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:PurchaseDetails">
+
+                    <tr>
+                        <td>
+                            @Html.Editor("StoreItemId", "ProductList", new
+                                 {
+                                     htmlAttributes = new
+                                     {
+                                         @data_bind = "value:StoreItemId, event:{change:ChangeItem}",
+                                         @class = "form-control"
+                                     }
+                                 })
+                        </td>
+
+                        <td>
+                            <span data-bind="text:CurrentQty"></span>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" data-bind="value:QTY,event:{change:$parent.ApplyVAT}" />
+
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" data-bind="value:UnitPrice,event:{change:$parent.ApplyVAT}" />
+                        </td>
+                        <td>
+                            <span data-bind="text:Total"></span>
+                        </td>
+                        <td>
+                           <textarea data-bind="value:SN" class="form-control" cols="3" rows="3"></textarea>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" type="button" data-bind="click:$parent.RemoveItem">
+                                <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </card>
+
+        <card title="بيانات الفاتورة" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>الإجمالي</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:PurchaseSummary.TotalAmount" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>تاريخ الفاتورة</label>
+                            <input class="form-control dateSamll" data-bind="value:PurchaseSummary.PurchaseDate" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>رقم الفاتورة</label>
+                            <input class="form-control" data-bind="value:PurchaseSummary.InvoiceNum" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>ضريبة قيمة مضافة</label>
+                            <input class="form-control" type="checkbox" data-bind="checked:PurchaseSummary.IsVAT, event:{change:ApplyVAT}" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>قيمة الضريبة المضافة</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:PurchaseSummary.VATAmount" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>الإجمالي شامل الضريبة</label>
+                            <input class="form-control" disabled="disabled" data-bind="value:PurchaseSummary.TotalAmountWithVAT" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>العملة</label>
+                            @Html.EditorFor(x => x.PurchaseSummary.CurrencyId, "CurrencyList", new
+                                   {
+                                       htmlAttributes = new
+                                       {
+                                           @data_bind = "value:PurchaseSummary.CurrencyId",
+                                           @class = "form-control"
+                                       }
+                                   })
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>صورة الفاتورة</label>
+                            <input type="file" id="InvoiceFile" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>التوصيف</label>
+                            <textarea class="form-control" cols="7" rows="3" data-bind="value:PurchaseSummary.Description">
+
+                    </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-center">
+                <button class="btn btn-primary" data-bind="click:Save">حفظ</button>
+            </div>
+        </card>
+    </div>
+</form>
+
+
+
+@section Scripts{
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/App/PurchaseVM.js" asp-append-version="true"></script>
+    <script>
+            var purchase = new PuchaseVM(@Html.Raw(model));
+            ko.applyBindings(purchase);
+    </script>
+
+}
+

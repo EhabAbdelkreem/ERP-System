@@ -1,0 +1,35 @@
+﻿@model ERPv1.HR.ViewModel.TestTax
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="Index">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Monthly Salary</label>
+                    <input  asp-for="MonthlySalary" class="form-control" />
+                    <span asp-validation-for="MonthlySalary"></span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Yearly Tax</label>
+                  <span>@Model.YearlyTax</span>
+                    <input asp-for="@Model.YearlyTax" class="form-control" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                   <input type="submit" class="btn btn-primary" value="Calc Tax" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{ 
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

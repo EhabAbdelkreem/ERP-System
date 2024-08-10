@@ -1,0 +1,91 @@
+﻿@model ERPv1.ERP.PurchasesModule.ViewModel.SupplierPaymentContainer
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "SupplierPayment";
+}
+@{ string model = JsonConvert.SerializeObject(Model);}
+
+<card title="بيانات المورد" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>اسم المورد</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:SupplierData.SupplierName" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>التليفون</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:SupplierData.Phone" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>الرصيد</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:SupplierData.Balance" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</card>
+<card title="تفاصيل الرصيد" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead>
+            <tr>
+
+                <th>
+                    العملة
+                </th>
+                <th>
+                    الرصيد
+                </th>
+                <th>
+                    الرصيد بالعملة المحلية
+                </th>
+                <th>
+                    سعر الصرف
+                </th>
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:SupplierBalanceDetails">
+
+            <tr style="cursor:pointer" data-bind="click:$parent.SelectBalance,css:{selected:CurrencyId() ==$parent.SelectedBalance.CurrencyId()}">
+                <td>
+                    <span data-bind="text:CurrencyAbbr"></span>
+                </td>
+
+                <td>
+                    <span data-bind="text:Amount"></span>
+                </td>
+                <td>
+                    <span data-bind="text:LocalAmount"></span>
+                </td>
+                <td>
+                    <span data-bind="text:Rate"></span>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</card>
+
+<vc:supplier-payment-method></vc:supplier-payment-method>
+
+
+@section Scripts{
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/App/SupplierPayament.js" asp-append-version="true"></script>
+    <script>
+        var SupplierPayment = new SupplierPayment(@Html.Raw(model));
+        ko.applyBindings(SupplierPayment);
+    </script>
+
+}
+

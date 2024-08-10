@@ -1,0 +1,21 @@
+﻿@inject ERPv1.Data.ApplicationDbContext dbContext
+
+
+@model dynamic
+@{
+    var client = dbContext.AccountChart
+           .Where(x => !x.IsParent && x.AccTypeId == 9)
+        .Select(x => new SelectListItem
+        {
+            Value = x.AccNum,
+            Text = x.AccountNameAr
+        }).OrderBy(x => x.Text).ToList();
+
+
+}
+@{
+    var htmlAttributes = ViewData["htmlAttributes"] ?? new { };
+}
+
+
+@Html.DropDownList("", client, "Select ---", htmlAttributes)

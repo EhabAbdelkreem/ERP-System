@@ -1,0 +1,97 @@
+﻿@model ERPv1.ERP.PurchasesModule.ViewModel.Expenses.ExpenseVM
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "NewExpense";
+}
+
+@{ string model = JsonConvert.SerializeObject(Model);}
+
+<card title="بيانات المصروف" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>المورد</label>
+                    @Html.EditorFor(x => x.ExpenseDetails.SupplierId, "SupplierList", new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @data_bind = "value:ExpenseDetails.SupplierId"
+                   }
+               })
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>المصروف</label>
+                    @Html.EditorFor(x => x.ExpenseDetails.ExpenseItemId, "ExpensesList", new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @data_bind = "value:ExpenseDetails.ExpenseItemId"
+                   }
+               })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>مركز التكلفة</label>
+                    @Html.EditorFor(x => x.ExpenseDetails.CostCenterId, "CostCenterList", new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @data_bind = "value:ExpenseDetails.CostCenterId"
+                   }
+               })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>المبلغ</label>
+                    <input class="form-control" data-bind="value:ExpenseDetails.Amount" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>العملة</label>
+                    @Html.EditorFor(x => x.ExpenseDetails.CurrencyId, "CurrencyList", new
+               {
+                   htmlAttributes = new
+                   {
+                       @class = "form-control",
+                       @data_bind = "value:ExpenseDetails.CurrencyId,event:{change:SelectCurrency}"
+                   }
+               })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>تاريخ المصروف</label>
+                    <input class="form-control dateSamll" data-bind="value:ExpenseDetails.ExpenseDate" />
+                </div>
+            </div>
+        </div>
+    </div>
+</card>
+
+<vc:supplier-payment-method></vc:supplier-payment-method>
+
+@section Scripts{
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/App/ExpenseVM.js" asp-append-version="true"></script>
+    <script>
+        var expense = new ExpenseVM(@Html.Raw(model));
+        ko.applyBindings(expense);
+    </script>
+
+}

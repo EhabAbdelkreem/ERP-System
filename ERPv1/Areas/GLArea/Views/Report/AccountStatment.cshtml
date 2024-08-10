@@ -1,0 +1,99 @@
+﻿@model ERPv1.ERP.GeneralLedgerModule.JournalModeule.ViewModel.AccountStatment.StatmentConatiner
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "AccountStatment";
+}
+@{ string model = JsonConvert.SerializeObject(Model);}
+
+<card title="بيانات كشف الحساب" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>اختر الحساب</label>
+                    @Html.EditorFor(x => x.StatmentParams.AccNum, "AccountList", new
+            {
+                htmlAttributes = new
+                {
+                    @class = "form-control",
+                    @data_bind = "value:StatmentParams.AccNum"
+                }
+            })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>تاريخ البداية</label>
+                    <input class="form-control dateSamll" data-bind="value:StatmentParams.StartDate" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>تاريخ النهاية</label>
+                    <input class="form-control dateSamll" data-bind="value:StatmentParams.EndDate" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label>الرصيد الافتتاحي</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:StatmentParams.StartBalance" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>الرصيد النهائي</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:StatmentParams.EndBalance" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</card>
+
+<card title="تفاصيل كشف الحساب" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>تاريخ الحركة</th>
+                <th>مدين</th>
+                <th>دائن</th>
+                <th>الوصف</th>
+                <th>الرصيد</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:Transactions">
+            <tr>
+                <td><span data-bind="text:TransDate"></span></td>
+                <td><span data-bind="text:Debit"></span></td>
+                <td><span data-bind="text:Credit"></span></td>
+                <td><span data-bind="text:Description"></span></td>
+                <td><span data-bind="text:BalanceAfter"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="card-footer text-center">
+        <button class="btn btn-primary" data-bind="click:GetStatment"> انشاء التقرير</button>
+    </div>
+</card>
+
+
+
+@section Scripts{
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/App/Statment.js" asp-append-version="true"></script>
+    <script>
+            var statment = new Statment(@Html.Raw(model));
+            ko.applyBindings(statment);
+    </script>
+
+}

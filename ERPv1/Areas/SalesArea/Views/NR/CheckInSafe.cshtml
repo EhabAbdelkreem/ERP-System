@@ -1,0 +1,176 @@
+﻿@model ERPv1.ERP.CurrentAssetModules.ChecksModule.ViewModel.ChecksInSafe.CheckInSafeContainer
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "CheckInSafe";
+}
+@{ string data = JsonConvert.SerializeObject(Model);}
+
+<form enctype="multipart/form-data" method="post">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <b class="text-white">
+                <span class="fa fa-list">&nbsp; شيكات في الخزنة</span>
+            </b>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover dataTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            اسم العميل
+                        </th>
+
+                        <th>
+                            رقم الشيك
+                        </th>
+                        <th>
+                            مبلغ الشيك
+                        </th>
+                        <th>
+                            مبلغ الشيك بالعملة
+                        </th>
+                        <th>
+                            العملة
+                        </th>
+                        <th>
+                            تاريخ الأستحقاق
+                        </th>
+                        <th>
+                            علي بنك
+                        </th>
+                        <th>
+                            حالة الشيك
+                        </th>
+
+                        <th>
+                            المدفوع
+                        </th>
+                        <th></th>
+
+
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: CheckDetails">
+                    <tr>
+                        <td>
+                            <input type="checkbox" data-bind="checked:Selected,enable:Paid()==0" />
+                        </td>
+                        <td>
+                            <span data-bind="text: ClientName" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckNum" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckAmount" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckAmountForiegn" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CurrencyAbbr" />
+                        </td>
+                        <td>
+                            <span data-bind="text: DueDate" />
+                        </td>
+                        <td>
+                            <span data-bind="text: OrginalBank" />
+                        </td>
+                        <td>
+                            <span data-bind="text: CheckStatus" />
+                        </td>
+                        <td>
+                            <span data-bind="text: Paid" />
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" data-bind="attr:{href:'/NR/CashCollection/'+CheckNum()}">تحصيل نقدي</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-header bg-primary">
+            <b class="text-white">
+                <span class="fa fa-list">&nbsp; تفاصيل الحافظة</span>
+            </b>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="SearchCriteria.UnitName">اسم الحافظة</label>
+                            @Html.EditorFor(x => x.HafzaDetails.HafzaName, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @data_bind = "value:HafzaDetails.HafzaName",
+                               @class = "form-control"
+                           }
+                       })
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="SearchCriteria.UnitName">اختار البنك</label>
+                            @Html.EditorFor(x => x.HafzaDetails.BankAccNum, "BankAccounts", new
+                       {
+                           htmlAttributes = new
+                           {
+                               @data_bind = "value:HafzaDetails.BankAccNum",
+                               @class = "form-control"
+                           }
+                       })
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="SearchCriteria.UnitName">تاريخ الحافظة</label>
+                        <div class="form-group">
+
+                            @Html.EditorFor(x => x.HafzaDetails.HafzaDate, new
+                   {
+                       htmlAttributes = new
+                       {
+                           @data_bind = "value:HafzaDetails.HafzaDate",
+                           @class = "form-control date"
+                       }
+                   })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary" type="button" data-bind="click:Save">
+                <i class="fa fa-save"></i>&nbsp;
+                حفظ
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/APP/CheckInSafe.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        var NR = new ChecksInSafe(@Html.Raw(data));
+        ko.applyBindings(NR);
+    </script>
+
+
+}

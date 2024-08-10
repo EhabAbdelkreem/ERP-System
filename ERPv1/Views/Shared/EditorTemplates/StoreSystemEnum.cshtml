@@ -1,0 +1,11 @@
+﻿@using ERPv1.ERP.CurrentAssetModules.Inventory.Model.Main
+
+@model StoreSystem
+@{
+    var options = Infrastructure.Extensions.EnumExtension.GetEnumSelectList<StoreSystem>();
+}
+@{
+    var htmlAttributes = ViewData["htmlAttributes"] ?? new { };
+}
+
+@Html.DropDownList("", options, htmlAttributes)

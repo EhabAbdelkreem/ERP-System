@@ -1,0 +1,90 @@
+﻿@model ERPv1.ERP.CurrentAssetModules.Inventory.ViewModel.StoreItemCreationVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<form asp-action="Create">
+    <card title="صنف جديد" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="BarCode" class="control-label"></label>
+                        <input asp-for="BarCode" class="form-control" />
+                        <span asp-validation-for="BarCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="NameAr" class="control-label"></label>
+                        <input asp-for="NameAr" class="form-control" />
+                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="ProductTypeId" class="control-label"></label>
+                        @Html.EditorFor(x => x.ProductTypeId, "ProductTypeList", new { htmlAttributes = new { @class = "form-control" } })
+                        <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="UnitMeasureId" class="control-label"></label>
+                        @Html.EditorFor(x => x.UnitMeasureId, "UnitMeasureList", new { htmlAttributes = new { @class = "form-control" } })
+                        <span asp-validation-for="UnitMeasureId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="BrandId" class="control-label"></label>
+                        @Html.EditorFor(x => x.BrandId, "BrandList", new { htmlAttributes = new { @class = "form-control" } })
+                        <span asp-validation-for="BrandId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="WithSN" class="control-label"></label>
+                        <input class="form-control" asp-for="WithSN" />
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="StoreSystem" class="control-label"></label>
+                        @Html.EditorFor(x => x.StoreSystem, "StoreSystemEnum", new { htmlAttributes = new { @class = "form-control" } })
+                        <span asp-validation-for="StoreSystem" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a class="btn btn-info float-left" asp-action="Index">Back to List</a>
+        </div>
+    </card>
+
+</form>
+

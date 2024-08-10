@@ -1,0 +1,131 @@
+﻿@model ERPv1.ERP.PurchasesModule.ViewModel.ReturnBack.PurchaseReturnBackContainer
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "ReturnBack";
+}
+
+@{ string model = JsonConvert.SerializeObject(Model);}
+
+<card title="بيانات فاتورة الشراء" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>اسم المورد</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.SupplierName" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>تاريخ الشراء</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.PurchaseDate" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>ةرقم الفاتور</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.InvoiceNum" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>اجمالي الفاتورة</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.TotalAmount" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>قيمة الضريبة</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.VATAmount" />
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>السعر شامل الضريبة</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.TotalAmountWithVAT" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>العملة</label>
+                    <input class="form-control" disabled="disabled" data-bind="value:PurchaseDetails.CurrencyAbbr" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</card>
+
+
+<card title="تفاصيل المشتريات" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead>
+            <tr>
+
+                <th>
+                    المنتج
+                </th>
+
+                <th>
+                    الكمية
+                </th>
+                <th>
+                    سعر الوحدة
+                </th>
+                <th>
+                    كيمة المرتجع
+                </th>
+
+
+
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:PurchaseStoreDetails">
+
+            <tr>
+                <td>
+                    <span class="form-control" data-bind="text:StoreItemName"></span>
+                </td>
+
+                <td>
+                    <span class="form-control" data-bind="text:QTY"></span>
+
+                </td>
+                <td>
+                    <span class="form-control" data-bind="text:UnitPrice"></span>
+                </td>
+                <td>
+                    <input class="form-control" data-bind="value:ReturnedQTY" />
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+    <div class="card-footer text-center">
+        <button class="btn btn-primary" data-bind="click:Save">حفظ</button>
+    </div>
+</card>
+
+
+@section Scripts{
+    <script src="~/lib/knockout/knockout-3.5.0.js"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js"></script>
+    <script src="~/App/PurchaseReturn.js" asp-append-version="true"></script>
+    <script>
+        var purchase = new PuchaseReturnVM(@Html.Raw(model));
+            ko.applyBindings(purchase);
+    </script>
+
+}

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ERPv1.ERP.GeneralLedgerModule.AccountCharts.ViewModel.AccountListVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<card title="شجرة الحسابات" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-list">
+    <table class="table table-bordered table-striped table-hover table-sm dataTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccNum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountNameAr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccTypeName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartingBalance)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrencyAbbr)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.BranchName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNameAr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccTypeName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartingBalance)
+                    </td>
+                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrencyAbbr)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BranchName)
+                    </td>
+                    <td>
+                      <partial name="_edit" model="@item.AccNum" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="card-footer text-center">
+        <a class="btn btn-primary text-white" asp-action="CreateAccount">انشاء حساب جديد</a>
+    </div>
+</card>
+
+
+
+

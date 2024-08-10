@@ -1,0 +1,71 @@
+﻿@model ERPv1.CRM.ViewModel.ContactCreatingViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create">
+    <card title="عميل جديد" header-back-ground="bg-primary" text-color="text-white" addational-class="fa-edit">
+      <div asp-validation-summary="All"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>اسم العميل</label>
+                        <input class="form-control" asp-for="Name" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>اسم العميل عربي </label>
+                        <input class="form-control" asp-for="NameAR" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input class="form-control" asp-for="Email" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>تليفون 1</label>
+                        <input class="form-control" asp-for="Phone1" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>تليفون 2 </label>
+                        <input class="form-control" asp-for="Phone2" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>انشاء حساب جديد</label>
+                        <input type="checkbox" class="form-control" asp-for="CreateAccount" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>اختار الحساب </label>
+                        @Html.EditorFor(x=>x.AccNum,"ClientAccList", new{ htmlAttributes = new {@class ="form-control" } })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </card>
+    <div class="card-footer text-center">
+        <input type="submit" class="btn btn-primary" value="حفظ" />
+    </div>
+</form>

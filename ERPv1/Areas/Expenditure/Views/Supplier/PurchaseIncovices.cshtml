@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ERPv1.ERP.PurchasesModule.Model.Purchase>
+
+@{
+    ViewData["Title"] = "PurchaseIncovices";
+}
+
+<h1>PurchaseIncovices</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierDetails.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsVAT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VATAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmountWithVAT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFullyPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency.CurrencyAbbrev)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierDetails.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsVAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VATAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmountWithVAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsFullyPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.CurrencyAbbrev)
+            </td>
+            <td>
+                <a asp-action="ReturnBack" asp-route-id="@item.Id">مرتجع</a>
+             
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

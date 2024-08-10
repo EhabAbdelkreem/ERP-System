@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ERPv1.CRM.Model.Contacts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<card title="قائمة الموردين" header-class="bg-primary"
+      addational-class="fa-list" text-color-class="text-white">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                   الأسم
+                </th>
+                <th>
+                    الأسم
+                </th>
+                <th>
+                 التليفون
+                </th>
+                
+                <th>
+                    الرصيد
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameAR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone1)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupplierBalance)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">
+                            <i class="fa fa-edit"></i>&nbsp;
+                            تعديل
+                        </a> |
+
+                        <a asp-action="NewPurchase" class="btn btn-primary" asp-route-id="@item.Id">
+                            <i class="fas fa-money-bill"></i>&nbsp;
+                            فاتورة شراء جديدة
+                        </a>
+                        |
+
+                        <a asp-action="SupplierPayment" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                            <i class="fas fa-money-bill-wave-alt"></i>&nbsp;
+                            مدفوعات جديدة
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="card-footer text-center">
+        <a class="btn btn-primary" asp-action="Create">اضافة مورد جديد</a>
+    </div>
+</card>
+
+
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ERPv1.CRM.Model.Contacts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<card title="قائمة العملاء" header-class="bg-primary"
+      addational-class="fa-list" text-color-class="text-white">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                   الأسم
+                </th>
+                <th>
+                    الأسم
+                </th>
+                <th>
+                 التليفون
+                </th>
+                
+                <th>
+                    الرصيد
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameAR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone1)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientBalance)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">
+                            <i class="fa fa-edit"></i>&nbsp;
+                            تعديل
+                        </a> |
+
+                        <a asp-action="NewSale" class="btn btn-primary" asp-route-id="@item.Id">
+                            <i class="fas fa-money-bill"></i>&nbsp;
+                            فاتورة بيع جديدة
+                        </a>
+                        |
+
+                        <a asp-action="ClientPayment" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                            <i class="fas fa-money-bill-wave-alt"></i>&nbsp;
+                            تحصيل
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="card-footer text-center">
+        <a class="btn btn-primary" asp-action="Create">اضافة عميل جديد</a>
+    </div>
+</card>
+
+
+
